@@ -1,0 +1,7 @@
+parameters:
+#    gl_notification.example.class: GL\NotificationBundle\Example
+
+services:
+#    gl_notification.example:
+#        class: %gl_notification.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

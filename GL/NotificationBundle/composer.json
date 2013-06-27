@@ -1,0 +1,41 @@
+{
+    "name":        "gl/notification-bundle",
+    "type":        "symfony-bundle",
+    "description": "Support notification system based on Redis and Doctrine.",
+    "keywords":    [
+        "Redis", "Notification"
+    ],
+    "homepage":    "http://github.com/wizart/NotificationBundle",
+    "license":     "MIT",
+
+    "authors": [
+        {
+            "name": "Victor Ostapchuk",
+            "email": "victor.ostapchuk@gmail.com"
+        }
+    ],
+
+    "require": {
+        "php":                          ">=5.3.3",
+        "symfony/framework-bundle":     "~2.3",
+        "snc/redis-bundle":             "~2.1"
+    },
+
+    "suggest": {
+        "doctrine/doctrine-bundle":     "to use Doctrine user provider"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "GL\\NotificationBundle": ""
+        }
+    },
+
+    "target-dir": "GL/NotificationBundle",
+
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    }
+}
