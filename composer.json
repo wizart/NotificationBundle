@@ -1,5 +1,5 @@
 {
-    "name":        "gl/notification-bundle",
+    "name":        "groslab/notification-bundle",
     "type":        "symfony-bundle",
     "description": "Support notification system based on Redis and Doctrine.",
     "keywords":    [
