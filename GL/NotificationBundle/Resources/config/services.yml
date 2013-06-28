@@ -5,3 +5,12 @@ services:
 #    gl_notification.example:
 #        class: %gl_notification.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+    gl_notification:
+        class: 'GL\NotificationBundle\DependencyInjection\CoreNotification'
+        arguments: [ @annotation_reader, @snc_redis.default, @security.context ]
+
+
+    gl_notification.grouphandler.entity:
+       class: 'GL\NotificationBundle\GroupHandler\Entity'
+       arguments: [ @doctrine.orm.entity_manager ]
