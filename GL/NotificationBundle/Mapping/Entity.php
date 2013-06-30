@@ -2,6 +2,9 @@
 
 namespace GL\NotificationBundle\Mapping;
 
+use GL\NotificationBundle\Exception\MethodNotFoundException;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 /**
  * @Annotation
  */
@@ -17,24 +20,26 @@ final class Entity extends AbstractColumnType
      */
     public $findMethod = "find";
 
-    public $groupHandler = 'gl_notification.grouphandler.entity';
-
     /**
      * @var mixed
      */
     public $serializeProperties = array("id");
 
-    public function serialize()
+    public function store($entity)
     {
-        $entity = $this->getNotificationPropertyValue();
         $serializeData = array();
         foreach( $this->serializeProperties as $property ){
             $getMethod = 'get'.ucfirst($property);
             if ( !method_exists($entity, $getMethod) ){
-                throw new \BadMethodCallException( sprintf('Method "%s" does not exist in %s', $getMethod, get_class($entity)) );
+                throw new MethodNotFoundException( sprintf('Method "%s" does not exist in %s', $getMethod, get_class($entity)) );
             }
             $serializeData[$property] = $entity->$getMethod();
         }
         return $serializeData;
+    }
+
+    public function restore($data, ContainerInterface $container = null)
+    {
+        return $container->get('doctrine.orm.entity_manager')->getRepository('FFUserBundle:UserDeal')->find($data);
     }
 }

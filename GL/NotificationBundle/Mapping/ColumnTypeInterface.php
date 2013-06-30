@@ -2,10 +2,9 @@
 
 namespace GL\NotificationBundle\Mapping;
 
-use GL\NotificationBundle\Notifications\NotificationInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 interface ColumnTypeInterface {
-    public function getShortName();
-    public function serialize();
-    public function unserialize($data);
+    public function store($value);
+    public function restore($value, ContainerInterface $container = null);
 }

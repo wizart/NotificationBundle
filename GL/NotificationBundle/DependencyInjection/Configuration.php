@@ -20,6 +20,30 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('gl_notification');
 
+        $rootNode
+            ->children()
+                ->scalarNode('flashStorage')->defaultValue('gl.notification.storage.redis')->end()
+                ->scalarNode('permanentStorage')->defaultNull()->end()
+                ->arrayNode('storage')
+                    ->children()
+                        ->arrayNode('redis')
+                            ->children()
+                                ->scalarNode('client')->defaultNull()->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+                ->arrayNode('mapped')
+                    ->children()
+                        ->arrayNode('aliases')
+                            ->prototype('scalar')
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+
+
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
