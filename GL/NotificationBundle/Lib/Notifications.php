@@ -64,6 +64,10 @@ class Notifications
      */
     public function add($recipient, NotificationInterface $notification)
     {
+        if ( empty($recipient) ){
+            return null;
+        }
+
         $recipients = is_array($recipient) ? $recipient : array($recipient);
 
         $proxy = new ProxyNotification($this);
@@ -112,7 +116,7 @@ class Notifications
     /* ------------------------------------------------------------------------------------------ Mapping methods --- */
     public function getMappedClassByAlias($alias)
     {
-        return isset($this->mappedConfig['aliases'][$alias]) ? $this->mappedConfig['aliases'][$alias] : null;
+        return isset($this->mappedConfig['aliases'][$alias]) ? $this->mappedConfig['aliases'][$alias] : $alias;
     }
     public function getAliasByMappedClass($class)
     {
