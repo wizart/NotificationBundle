@@ -40,6 +40,6 @@ final class Entity extends AbstractColumnType
 
     public function restore($data, ContainerInterface $container = null)
     {
-        return $container->get('doctrine.orm.entity_manager')->getRepository('FFUserBundle:UserDeal')->find($data);
+        return $container->get('doctrine.orm.entity_manager')->getRepository($this->repository)->find($data);
     }
 }
