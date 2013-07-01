@@ -27,7 +27,7 @@
 
     "autoload": {
         "psr-0": {
-            "GL\\NotificationBundle": "GL\\NotificationBundle"
+            "GL\\NotificationBundle": ""
         }
     },
 
