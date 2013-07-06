@@ -4,9 +4,8 @@ namespace GL\NotificationBundle\Lib;
 
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\Common\Collections\ArrayCollection;
-use GL\NotificationBundle\Notifications\NotificationInterface;
+use GL\NotificationBundle\Lib\NotificationInterface;
 use GL\NotificationBundle\Storage\NotificationStorageInterface;
-use Symfony\Component\Debug\Exception\ContextErrorException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
@@ -25,13 +24,15 @@ class Notifications
     private $permanentStorageAdapter;
 
     private $mappedConfig;
+    private $storeSuffix;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, $storeSuffix = 'notice')
     {
         $this->_elements = new ArrayCollection();
         $this->container = $container;
         $this->annotationReader = $this->container->get('annotation_reader');
         $this->instanceFromConfig($this->container->getParameter('gl_notification_config'));
+        $this->storeSuffix = $storeSuffix;
     }
 
     public function getContainer()
@@ -159,7 +160,7 @@ class Notifications
     }
 
     public function restore($recipient){
-        $list = $this->flashStorageAdapter->get($this->getStoreKeyForRecipient($recipient));
+        $list = $this->flashStorageAdapter->get( $this->getStoreKeyForRecipient($recipient) );
 
         if ( !$this->_elements->containsKey($recipient) ){
             $this->_elements->set($recipient, new ArrayCollection());
@@ -179,7 +180,7 @@ class Notifications
 
     public function getStoreKeyForRecipient($recipient)
     {
-        return 'u:'.$recipient.':notices';
+        return 'u:'.$recipient.':'.$this->storeSuffix;
     }
 
     private function prepareToStore(){}
