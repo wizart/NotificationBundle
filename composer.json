@@ -22,7 +22,7 @@
     },
 
     "suggest": {
-        "doctrine/doctrine-bundle":     "to use Doctrine user provider"
+        "doctrine/doctrine-bundle":     "to use Doctrine provider"
     },
 
     "autoload": {
